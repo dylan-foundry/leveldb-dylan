@@ -1,0 +1,2 @@
+This library wraps ``leveldb``.
+
