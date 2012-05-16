@@ -6,7 +6,7 @@ all: leveldb.dylan ext/leveldb/libleveldb.a build
 
 .PHONY: build
 
-leveldb.dylan: leveldb.intr
+leveldb.dylan: leveldb.intr $(MELANGE)
 	$(MELANGE) -Tc-ffi -Iext/leveldb/include leveldb.intr leveldb.dylan
 
 ext/leveldb/libleveldb.a:
