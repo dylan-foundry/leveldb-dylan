@@ -2,9 +2,9 @@ MELANGE=~/Open-Dylan/bin/melange
 
 OPEN_DYLAN_USER_REGISTRIES = $(CURDIR)/registry
 
-all: leveldb.dylan ext/leveldb/libleveldb.a build
+all: build
 
-.PHONY: build
+.PHONY: build test
 
 leveldb.dylan: leveldb.intr $(MELANGE)
 	$(MELANGE) -Tc-ffi -Iext/leveldb/include leveldb.intr leveldb.dylan
@@ -12,9 +12,9 @@ leveldb.dylan: leveldb.intr $(MELANGE)
 ext/leveldb/libleveldb.a:
 	$(MAKE) -C ext/leveldb
 
-build:
+build: leveldb.dylan ext/leveldb/libleveldb.a
 	dylan-compiler -build leveldb
 
-test:
+test: leveldb.dylan ext/leveldb/libleveldb.a
 	dylan-compiler -build leveldb-test-suite-app
 	~/Open-Dylan/bin/leveldb-test-suite-app
