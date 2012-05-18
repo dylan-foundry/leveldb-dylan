@@ -1,0 +1,12 @@
+ * leveldb-approximate-sizes needs to be wrapped correctly.
+ * I currently ignore lengths returned with keys and values.
+ * Would be nice to have byte-vector specializations (or just
+   make it work in terms of byte-vector entirely).
+ * Write tests to see that everything actually works.
+ * Hook up finalization so that things don't have to be
+   manually destroyed.
+ * Write some getter/setter-style methods for the various
+   options/readoptions/writeoptions.
+ * Deal correctly with snappy not being present.
+ * Deal correctly with build issues on OS X due to i386 vs
+   x86_64.
