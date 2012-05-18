@@ -9,8 +9,10 @@ define interface
       "leveldb_delete" => %leveldb-delete,
       "leveldb_write" => %leveldb-write,
       "leveldb_get" => %leveldb-get,
+      "leveldb_compact_range" => %leveldb-compact-range,
       "leveldb_destroy_db" => %leveldb-destroy-db,
       "leveldb_repair_db" => %leveldb-repair-db,
+      "leveldb_iter_seek" => %leveldb-iter-seek,
       "leveldb_writebatch_put" => %leveldb-writebatch-put,
       "leveldb_writebatch_delete" => %leveldb-writebatch-delete
     };
@@ -36,6 +38,12 @@ define interface
 
   function "leveldb_repair_db",
     output-argument: 3;
+
+  function "leveldb_iter_key",
+    output-argument: 2;
+
+  function "leveldb_iter_value",
+    output-argument: 2;
 
   function "leveldb_iter_valid",
     map-result: <C-boolean>;
@@ -90,6 +98,10 @@ define method leveldb-get (db :: <leveldb-t*>, options :: <leveldb-readoptions-t
   data
 end;
 
+define function leveldb-compact-range (db :: <leveldb-t*>, start-key :: <string>, limit-key :: <string>) => ()
+  %leveldb-compact-range(db, start-key, start-key.size, limit-key, limit-key.size)
+end;
+
 define function leveldb-destroy-db (options :: <leveldb-options-t*>, name :: <byte-string>)
   let errormsg = %leveldb-destroy-db(options, name);
   if (errormsg ~= "")
@@ -102,6 +114,10 @@ define function leveldb-repair-db (options :: <leveldb-options-t*>, name :: <byt
   if (errormsg ~= "")
     error(errormsg);
   end;
+end;
+
+define method leveldb-iter-seek (iter :: <leveldb-iterator-t*>, key :: <string>) => ()
+  %leveldb-iter-seek(iter, key, key.size)
 end;
 
 define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, val :: <string>)
