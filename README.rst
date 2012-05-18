@@ -13,3 +13,6 @@ You will also need a build of ``melange`` from the
 To build on OS X, some work remains. Some work also remains
 to deal with not having Google's Snappy compression library
 installed.
+
+See the TODO for a more complete list of issues to be
+addressed.
