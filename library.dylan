@@ -55,4 +55,8 @@ define module leveldb
   export leveldb-cache-create-lru, leveldb-cache-destroy;
 
   export leveldb-create-default-env, leveldb-env-destroy;
+
+  export leveldb-free;
+
+  export leveldb-major-version, leveldb-minor-version;
 end module;
