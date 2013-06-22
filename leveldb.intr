@@ -63,7 +63,7 @@ end interface;
 
 define function leveldb-open (options :: <leveldb-options-t*>, name :: <byte-string>) => (db :: <leveldb-t*>)
   let (db, errormsg) = %leveldb-open(options, name);
-  if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
   end;
   db
@@ -71,30 +71,30 @@ end;
 
 define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data :: <string>) => ()
   let errormsg = %leveldb-put(db, options, key, key.size, data, data.size);
-  /*if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
-  end;*/
+  end;
 end;
 
 define method leveldb-delete (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>) => ()
   let errormsg = %leveldb-delete(db, options, key, key.size);
-  if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
   end;
 end;
 
 define method leveldb-write (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, batch :: <leveldb-writebatch-t*>) => ()
   let errormsg = %leveldb-write(db, options, batch);
-  if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
   end;
 end;
 
 define method leveldb-get (db :: <leveldb-t*>, options :: <leveldb-readoptions-t*>, key :: <string>)
   let (data, length, errormsg) = %leveldb-get(db, options, key, key.size);
-  /*if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
-  end;*/
+  end;
   data
 end;
 
@@ -104,14 +104,14 @@ end;
 
 define function leveldb-destroy-db (options :: <leveldb-options-t*>, name :: <byte-string>)
   let errormsg = %leveldb-destroy-db(options, name);
-  if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
   end;
 end;
 
 define function leveldb-repair-db (options :: <leveldb-options-t*>, name :: <byte-string>)
   let errormsg = %leveldb-repair-db(options, name);
-  if (errormsg ~= "")
+  unless (null-pointer?(errormsg))
     error(errormsg);
   end;
 end;
