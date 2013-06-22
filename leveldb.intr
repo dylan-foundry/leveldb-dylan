@@ -1,5 +1,22 @@
 module: leveldb
 
+define simple-C-mapped-subtype <C-buffer-offset> (<C-void*>)
+  export-map <machine-word>, export-function: identity;
+end;
+
+// Function for adding the base address of the repeated slots of a <buffer>
+// to an offset and returning the result as a <machine-word>.  This is
+// necessary for passing <buffer> contents across the FFI.
+
+define function buffer-offset
+    (the-buffer :: <buffer>, data-offset :: <integer>)
+ => (result-offset :: <machine-word>)
+  u%+(data-offset,
+      primitive-wrap-machine-word
+        (primitive-repeated-slot-as-raw
+           (the-buffer, primitive-repeated-slot-offset(the-buffer))))
+end function;
+
 define interface
   #include "leveldb/c.h",
     equate: {"char *" => <c-string>},
@@ -21,6 +38,7 @@ define interface
     output-argument: 3;
 
   function "leveldb_put",
+    map-argument: { 5 => <C-buffer-offset> },
     output-argument: 7;
 
   function "leveldb_delete",
@@ -69,8 +87,8 @@ define function leveldb-open (options :: <leveldb-options-t*>, name :: <byte-str
   db
 end;
 
-define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data :: <string>) => ()
-  let errormsg = %leveldb-put(db, options, key, key.size, data, data.size);
+define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data :: <buffer>) => ()
+  let errormsg = %leveldb-put(db, options, key, key.size, buffer-offset(data, 0), data.size);
   unless (null-pointer?(errormsg))
     error(errormsg);
   end;

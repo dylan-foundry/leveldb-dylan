@@ -1,8 +1,10 @@
 module: dylan-user
 
 define library leveldb
+  use dylan;
   use common-dylan;
   use c-ffi;
+  use io;
 
   export leveldb;
 end library;
@@ -10,6 +12,8 @@ end library;
 define module leveldb
   use common-dylan;
   use c-ffi;
+  use dylan-direct-c-ffi;
+  use streams;
 
   export $leveldb-no-compression, $leveldb-snappy-compression;
 
