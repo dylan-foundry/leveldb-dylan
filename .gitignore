@@ -1,3 +1,4 @@
 *.hdp
 _build
 leveldb.dylan
+test.db

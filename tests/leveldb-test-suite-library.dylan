@@ -12,6 +12,7 @@ end library;
 define module leveldb-test-suite
   use common-dylan, exclude: { format-to-string };
   use format;
+  use streams;
   use leveldb;
   use testworks;
 
