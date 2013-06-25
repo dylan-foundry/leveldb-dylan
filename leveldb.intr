@@ -114,7 +114,7 @@ define method leveldb-write (db :: <leveldb-t*>, options :: <leveldb-writeoption
   end;
 end;
 
-define method leveldb-get (db :: <leveldb-t*>, options :: <leveldb-readoptions-t*>, key :: <string>)
+define method leveldb-get (db :: <leveldb-t*>, options :: <leveldb-readoptions-t*>, key :: <string>) => (bytes :: <byte-vector>)
   let (data, length, errormsg) = %leveldb-get(db, options, key, key.size);
   unless (null-pointer?(errormsg))
     error(errormsg);
@@ -128,14 +128,14 @@ define function leveldb-compact-range (db :: <leveldb-t*>, start-key :: <string>
   %leveldb-compact-range(db, start-key, start-key.size, limit-key, limit-key.size)
 end;
 
-define function leveldb-destroy-db (options :: <leveldb-options-t*>, name :: <byte-string>)
+define function leveldb-destroy-db (options :: <leveldb-options-t*>, name :: <byte-string>) => ()
   let errormsg = %leveldb-destroy-db(options, name);
   unless (null-pointer?(errormsg))
     error(errormsg);
   end;
 end;
 
-define function leveldb-repair-db (options :: <leveldb-options-t*>, name :: <byte-string>)
+define function leveldb-repair-db (options :: <leveldb-options-t*>, name :: <byte-string>) => ()
   let errormsg = %leveldb-repair-db(options, name);
   unless (null-pointer?(errormsg))
     error(errormsg);
@@ -146,10 +146,10 @@ define method leveldb-iter-seek (iter :: <leveldb-iterator-t*>, key :: <string>)
   %leveldb-iter-seek(iter, key, key.size)
 end;
 
-define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, data)
+define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, data) => ()
   %leveldb-writebatch-put(batch, key, key.size, buffer-offset(data, 0), data.size);
 end;
 
-define method leveldb-writebatch-delete (batch :: <leveldb-writebatch-t*>, key :: <string>)
+define method leveldb-writebatch-delete (batch :: <leveldb-writebatch-t*>, key :: <string>) => ()
   %leveldb-writebatch-delete(batch, key, key.size);
 end;
