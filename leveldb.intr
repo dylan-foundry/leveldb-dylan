@@ -11,8 +11,8 @@ end;
 // to an offset and returning the result as a <machine-word>.  This is
 // necessary for passing <buffer> contents across the FFI.
 
-define function buffer-offset
-    (the-buffer :: <buffer>, data-offset :: <integer>)
+define inline function buffer-offset
+    (the-buffer, data-offset :: <integer>)
  => (result-offset :: <machine-word>)
   u%+(data-offset,
       primitive-wrap-machine-word
@@ -90,7 +90,7 @@ define function leveldb-open (options :: <leveldb-options-t*>, name :: <byte-str
   db
 end;
 
-define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data :: <buffer>) => ()
+define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data) => ()
   let errormsg = %leveldb-put(db, options, key, key.size, buffer-offset(data, 0), data.size);
   unless (null-pointer?(errormsg))
     error(errormsg);

@@ -10,12 +10,22 @@ define test basic-leveldb-test ()
   leveldb-options-set-create-if-missing(options, #t);
   let db = leveldb-open(options, "test.db");
   let writeoptions = leveldb-writeoptions-create();
-  check-no-condition("Can write to the database",
-                     leveldb-put(db, writeoptions, "somekey", as(<buffer>, "HALP")));
+  check-no-condition("Can write to the database as buffer",
+                     leveldb-put(db, writeoptions, "somekey1", as(<buffer>, "HALP1")));
+  check-no-condition("Can write to the database as byte-vector",
+                     leveldb-put(db, writeoptions, "somekey2", as(<byte-vector>, "HALP2")));
+  check-no-condition("Can write to the database as string",
+                     leveldb-put(db, writeoptions, "somekey3", "HALP3"));
   let readoptions = leveldb-readoptions-create();
   check-equal("Can read from the database",
-              "HALP",
-              leveldb-get(db, readoptions, "somekey"));
+              "HALP1",
+              leveldb-get(db, readoptions, "somekey1"));
+  check-equal("Can read from the database",
+              "HALP2",
+              leveldb-get(db, readoptions, "somekey2"));
+  check-equal("Can read from the database",
+              "HALP3",
+              leveldb-get(db, readoptions, "somekey3"));
   leveldb-writeoptions-destroy(writeoptions);
   leveldb-readoptions-destroy(readoptions);
   leveldb-close(db);
