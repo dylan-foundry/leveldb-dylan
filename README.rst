@@ -7,12 +7,12 @@ Be sure to clone this recursively::
 To do a build, use ``make`` so that the appropriate steps
 are executed.
 
-You must be using Open Dylan 2012.1 or later.
+Please note:
 
-You will also need a build of ``melange`` from the
-`melange`_ repo in your ``$PATH``.
-
-You must have Google's Snappy library installed.
+* You must be using Open Dylan 2012.1 or later.
+* You will also need a build of ``melange`` from the
+  `melange`_ repo in your ``$PATH``.
+* You must have Google's Snappy library installed.
 
 See the TODO for a more complete list of issues to be
 addressed.
