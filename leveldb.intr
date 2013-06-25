@@ -72,6 +72,9 @@ define interface
   function "leveldb_iter_get_error",
     output-argument: 2;
 
+  function "leveldb_writebatch_put",
+    map-argument: { 4 => <C-buffer-offset> };
+
   function "leveldb_options_set_create_if_missing",
     map-argument: { 2 => <C-boolean> };
 
@@ -143,8 +146,8 @@ define method leveldb-iter-seek (iter :: <leveldb-iterator-t*>, key :: <string>)
   %leveldb-iter-seek(iter, key, key.size)
 end;
 
-define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, val :: <string>)
-  %leveldb-writebatch-put(batch, key, key.size, val, val.size);
+define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, data)
+  %leveldb-writebatch-put(batch, key, key.size, buffer-offset(data, 0), data.size);
 end;
 
 define method leveldb-writebatch-delete (batch :: <leveldb-writebatch-t*>, key :: <string>)
