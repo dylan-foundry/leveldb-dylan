@@ -1,7 +1,13 @@
 module: leveldb-test-suite
 synopsis: Test suite for the leveldb library.
 
-define suite leveldb-test-suite ()
+define function cleanup-db () => ()
+  let options = leveldb-options-create();
+  leveldb-destroy-db(options, "test.db");
+  leveldb-options-destroy(options);
+end;
+
+define suite leveldb-test-suite (cleanup-function: cleanup-db)
   test basic-leveldb-test;
   test writebatching-leveldb-test;
   test iterator-leveldb-test;
