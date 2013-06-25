@@ -4,5 +4,4 @@
 * Hook up finalization so that things don't have to be
   manually destroyed.
 * Write documentation descriptions + samples.
-* Fix bindings for ``leveldb-iter-get-error``,
-  ``leveldb-iter-key``, and ``leveldb-iter-value()``.
+* Fix bindings for ``leveldb-iter-get-error``.

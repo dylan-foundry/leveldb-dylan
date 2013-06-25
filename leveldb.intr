@@ -32,7 +32,9 @@ define interface
       "leveldb_compact_range" => %leveldb-compact-range,
       "leveldb_destroy_db" => %leveldb-destroy-db,
       "leveldb_repair_db" => %leveldb-repair-db,
+      "leveldb_iter_key" => %leveldb-iter-key,
       "leveldb_iter_seek" => %leveldb-iter-seek,
+      "leveldb_iter_value" => %leveldb-iter-value,
       "leveldb_writebatch_put" => %leveldb-writebatch-put,
       "leveldb_writebatch_delete" => %leveldb-writebatch-delete
     };
@@ -142,8 +144,22 @@ define function leveldb-repair-db (options :: <leveldb-options-t*>, name :: <byt
   end;
 end;
 
+define method leveldb-iter-key (iter :: <leveldb-iterator-t*>) => (key :: <string>)
+  let (key-data, length) = %leveldb-iter-key(iter);
+  let key = make(<string>, size: length);
+  copy-bytes(key, 0, key-data, 0, length);
+  key
+end;
+
 define method leveldb-iter-seek (iter :: <leveldb-iterator-t*>, key :: <string>) => ()
   %leveldb-iter-seek(iter, key, key.size)
+end;
+
+define method leveldb-iter-value (iter :: <leveldb-iterator-t*>) => (value :: <byte-vector>)
+  let (value-data, length) = %leveldb-iter-value(iter);
+  let value = make(<byte-vector>, size: length);
+  copy-bytes(value, 0, value-data, 0, length);
+  value
 end;
 
 define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, data) => ()

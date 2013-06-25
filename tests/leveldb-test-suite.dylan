@@ -4,6 +4,7 @@ synopsis: Test suite for the leveldb library.
 define suite leveldb-test-suite ()
   test basic-leveldb-test;
   test writebatching-leveldb-test;
+  test iterator-leveldb-test;
 end suite;
 
 define test basic-leveldb-test ()
@@ -61,3 +62,42 @@ define test writebatching-leveldb-test ()
   leveldb-close(db);
   leveldb-options-destroy(options);
 end test writebatching-leveldb-test;
+
+define test iterator-leveldb-test ()
+  let options = leveldb-options-create();
+  leveldb-options-set-create-if-missing(options, #t);
+  let db = leveldb-open(options, "test.db");
+  let writeoptions = leveldb-writeoptions-create();
+  leveldb-put(db, writeoptions, "aaaaaaa", "first key value");
+  leveldb-put(db, writeoptions, "zzzzzzz", "last key value");
+  let readoptions = leveldb-readoptions-create();
+  let iter = leveldb-create-iterator(db, readoptions);
+  leveldb-iter-seek-to-first(iter);
+  check-equal("first iter is valid",
+              #t,
+              leveldb-iter-valid(iter));
+  check-equal("first iter returns correct key",
+              "aaaaaaa",
+              leveldb-iter-key(iter));
+  check-equal("first iter returns correct value",
+              as(<byte-vector>, "first key value"),
+              leveldb-iter-value(iter));
+  leveldb-iter-seek-to-last(iter);
+  check-equal("last iter is valid",
+              #t,
+              leveldb-iter-valid(iter));
+  check-equal("last iter returns correct key",
+              "zzzzzzz",
+              leveldb-iter-key(iter));
+  check-equal("last iter returns correct value",
+              as(<byte-vector>, "last key value"),
+              leveldb-iter-value(iter));
+  leveldb-iter-next(iter);
+  check-equal("last + next iter is not valid",
+              #f,
+              leveldb-iter-valid(iter));
+  leveldb-writeoptions-destroy(writeoptions);
+  leveldb-readoptions-destroy(readoptions);
+  leveldb-close(db);
+  leveldb-options-destroy(options);
+end test iterator-leveldb-test;
