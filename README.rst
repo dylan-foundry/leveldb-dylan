@@ -14,7 +14,7 @@ Please note:
   `melange`_ repo in your ``$PATH``.
 * You must have Google's Snappy library installed.
 
-See the TODO for a more complete list of issues to be
+See the TODO.rst for a more complete list of issues to be
 addressed.
 
 .. _leveldb: https://code.google.com/p/leveldb/
