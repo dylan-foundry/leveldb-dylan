@@ -11,6 +11,7 @@ end library;
 
 define module leveldb
   use common-dylan;
+  use byte-vector;
   use c-ffi;
   use dylan-direct-c-ffi;
   use streams;

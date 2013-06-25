@@ -116,7 +116,9 @@ define method leveldb-get (db :: <leveldb-t*>, options :: <leveldb-readoptions-t
   unless (null-pointer?(errormsg))
     error(errormsg);
   end;
-  data
+  let bytes = make(<byte-vector>, size: length);
+  copy-bytes(bytes, 0, data, 0, length);
+  bytes
 end;
 
 define function leveldb-compact-range (db :: <leveldb-t*>, start-key :: <string>, limit-key :: <string>) => ()

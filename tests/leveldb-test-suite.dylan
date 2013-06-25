@@ -18,13 +18,13 @@ define test basic-leveldb-test ()
                      leveldb-put(db, writeoptions, "somekey3", "HALP3"));
   let readoptions = leveldb-readoptions-create();
   check-equal("Can read from the database",
-              "HALP1",
+              as(<byte-vector>, "HALP1"),
               leveldb-get(db, readoptions, "somekey1"));
   check-equal("Can read from the database",
-              "HALP2",
+              as(<byte-vector>, "HALP2"),
               leveldb-get(db, readoptions, "somekey2"));
   check-equal("Can read from the database",
-              "HALP3",
+              as(<byte-vector>, "HALP3"),
               leveldb-get(db, readoptions, "somekey3"));
   leveldb-writeoptions-destroy(writeoptions);
   leveldb-readoptions-destroy(readoptions);
