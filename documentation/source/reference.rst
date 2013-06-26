@@ -149,7 +149,7 @@ Iterators
    :signature: leveldb-iter-valid (arg1) => (res)
 
    :parameter arg1: An instance of ``<leveldb-iterator-t*>``.
-   :value res: An instance of ``<c-boolean>``.
+   :value res: An instance of ``<boolean>``.
 
 .. function:: leveldb-iter-value
 
@@ -218,7 +218,7 @@ Options
    :signature: leveldb-options-set-create-if-missing (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-options-t*>``.
-   :parameter arg2: An instance of ``<c-boolean>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 .. function:: leveldb-options-set-env
 
@@ -232,7 +232,7 @@ Options
    :signature: leveldb-options-set-error-if-exists (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-options-t*>``.
-   :parameter arg2: An instance of ``<c-boolean>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 .. function:: leveldb-options-set-filter-policy
 
@@ -260,7 +260,7 @@ Options
    :signature: leveldb-options-set-paranoid-checks (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-options-t*>``.
-   :parameter arg2: An instance of ``<c-boolean>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 .. function:: leveldb-options-set-write-buffer-size
 
@@ -286,7 +286,7 @@ Options
    :signature: leveldb-readoptions-set-fill-cache (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-readoptions-t*>``.
-   :parameter arg2: An instance of ``<c-unsigned-char>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 .. function:: leveldb-readoptions-set-snapshot
 
@@ -300,7 +300,7 @@ Options
    :signature: leveldb-readoptions-set-verify-checksums (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-readoptions-t*>``.
-   :parameter arg2: An instance of ``<c-unsigned-char>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 .. function:: leveldb-writeoptions-create
 
@@ -319,7 +319,7 @@ Options
    :signature: leveldb-writeoptions-set-sync (arg1 arg2) => ()
 
    :parameter arg1: An instance of ``<leveldb-writeoptions-t*>``.
-   :parameter arg2: An instance of ``<c-unsigned-char>``.
+   :parameter arg2: An instance of ``<boolean>``.
 
 Write Batching
 --------------

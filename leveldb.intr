@@ -85,6 +85,15 @@ define interface
 
   function "leveldb_options_set_paranoid_checks",
     map-argument: { 2 => <C-boolean> };
+
+  function "leveldb_readoptions_set_fill_cache",
+    map-argument: { 2 => <C-boolean> };
+
+  function "leveldb_readoptions_set_verify_checksums",
+    map-argument: { 2 => <C-boolean> };
+
+  function "leveldb_writeoptions_set_sync",
+    map-argument: { 2 => <C-boolean> };
 end interface;
 
 define function leveldb-open (options :: <leveldb-options-t*>, name :: <byte-string>) => (db :: <leveldb-t*>)
