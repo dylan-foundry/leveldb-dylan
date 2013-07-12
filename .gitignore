@@ -1,5 +1,4 @@
 *.hdp
 _build
 documentation/build
-leveldb.dylan
 test.db
