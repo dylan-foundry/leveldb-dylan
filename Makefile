@@ -11,6 +11,9 @@ endif
 ifeq ($(UNAME), Linux)
   CFLAGS="-fPIC -O2 -DNDEBUG"
 endif
+ifeq ($(UNAME), FreeBSD)
+  CFLAGS="-fPIC -O2 -DNDEBUG"
+endif
 
 leveldb.dylan: leveldb.intr ext/leveldb/include/leveldb/c.h
 	$(MELANGE) -Tc-ffi -Iext/leveldb/include -I/usr/lib/clang/4.1/include/ -I/usr/include leveldb.intr leveldb.dylan
