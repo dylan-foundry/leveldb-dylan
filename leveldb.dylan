@@ -286,15 +286,13 @@ define C-function %leveldb-writebatch-delete
   c-name: "leveldb_writebatch_delete";
 end;
 
-define constant <anonymous-31> = <C-function-pointer>;
-define C-pointer-type <anonymous-31*> => <anonymous-31>;
-define constant <anonymous-32> = <C-function-pointer>;
-define C-pointer-type <anonymous-32*> => <anonymous-32>;
+define constant <put> = <C-function-pointer>;
+define constant <deleted> = <C-function-pointer>;
 define C-function leveldb-writebatch-iterate
   input parameter arg1_ :: <leveldb-writebatch-t*>;
   input parameter state_ :: <C-void*>;
-  input parameter put_ :: <anonymous-31*>;
-  input parameter deleted_ :: <anonymous-32*>;
+  input parameter put_ :: <put>;
+  input parameter deleted_ :: <deleted>;
   c-name: "leveldb_writebatch_iterate";
 end;
 
@@ -394,17 +392,14 @@ define C-function leveldb-options-set-compression
   c-name: "leveldb_options_set_compression";
 end;
 
-define constant <anonymous-50> = <C-function-pointer>;
-define C-pointer-type <anonymous-50*> => <anonymous-50>;
-define constant <anonymous-51> = <C-function-pointer>;
-define C-pointer-type <anonymous-51*> => <anonymous-51>;
-define constant <anonymous-52> = <C-function-pointer>;
-define C-pointer-type <anonymous-52*> => <anonymous-52>;
+define constant <destructor> = <C-function-pointer>;
+define constant <compare> = <C-function-pointer>;
+define constant <name> = <C-function-pointer>;
 define C-function leveldb-comparator-create
   input parameter state_ :: <C-void*>;
-  input parameter destructor_ :: <anonymous-50*>;
-  input parameter compare_ :: <anonymous-51*>;
-  input parameter name_ :: <anonymous-52*>;
+  input parameter destructor_ :: <destructor>;
+  input parameter compare_ :: <compare>;
+  input parameter name_ :: <name>;
   result res :: <leveldb-comparator-t*>;
   c-name: "leveldb_comparator_create";
 end;
@@ -414,20 +409,16 @@ define C-function leveldb-comparator-destroy
   c-name: "leveldb_comparator_destroy";
 end;
 
-define constant <anonymous-55> = <C-function-pointer>;
-define C-pointer-type <anonymous-55*> => <anonymous-55>;
-define constant <anonymous-56> = <C-function-pointer>;
-define C-pointer-type <anonymous-56*> => <anonymous-56>;
-define constant <anonymous-57> = <C-function-pointer>;
-define C-pointer-type <anonymous-57*> => <anonymous-57>;
-define constant <anonymous-58> = <C-function-pointer>;
-define C-pointer-type <anonymous-58*> => <anonymous-58>;
+define constant <destructor> = <C-function-pointer>;
+define constant <create-filter> = <C-function-pointer>;
+define constant <key-may-match> = <C-function-pointer>;
+define constant <name> = <C-function-pointer>;
 define C-function leveldb-filterpolicy-create
   input parameter state_ :: <C-void*>;
-  input parameter destructor_ :: <anonymous-55*>;
-  input parameter create-filter_ :: <anonymous-56*>;
-  input parameter key-may-match_ :: <anonymous-57*>;
-  input parameter name_ :: <anonymous-58*>;
+  input parameter destructor_ :: <destructor>;
+  input parameter create-filter_ :: <create-filter>;
+  input parameter key-may-match_ :: <key-may-match>;
+  input parameter name_ :: <name>;
   result res :: <leveldb-filterpolicy-t*>;
   c-name: "leveldb_filterpolicy_create";
 end;
