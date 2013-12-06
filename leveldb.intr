@@ -22,7 +22,7 @@ end function;
 
 define interface
   #include "leveldb/c.h",
-    equate: {"char *" => <c-string>},
+    equate: {"char *" => <C-string>},
     rename: {
       "leveldb_open" => %leveldb-open,
       "leveldb_put" => %leveldb-put,

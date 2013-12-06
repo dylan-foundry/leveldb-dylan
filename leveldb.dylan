@@ -70,11 +70,11 @@ end;
 
 define C-pointer-type <leveldb-t*> => <leveldb-t>;
 define C-pointer-type <leveldb-options-t*> => <leveldb-options-t>;
-define C-pointer-type <c-string> => <C-signed-char>;
-define C-pointer-type <char**> => <c-string>;
+define C-pointer-type <C-string> => <C-signed-char>;
+define C-pointer-type <char**> => <C-string>;
 define C-function %leveldb-open
   input parameter options_ :: <leveldb-options-t*>;
-  input parameter name_ :: <c-string>;
+  input parameter name_ :: <C-string>;
   output parameter errptr_ :: <char**>;
   result res :: <leveldb-t*>;
   c-name: "leveldb_open";
@@ -93,7 +93,7 @@ define constant <size-t> = <__darwin-size-t>;
 define C-function %leveldb-put
   input parameter db_ :: <leveldb-t*>;
   input parameter options_ :: <leveldb-writeoptions-t*>;
-  input parameter key_ :: <c-string>;
+  input parameter key_ :: <C-string>;
   input parameter keylen_ :: <size-t>;
   input parameter val_ :: <C-buffer-offset>;
   input parameter vallen_ :: <size-t>;
@@ -104,7 +104,7 @@ end;
 define C-function %leveldb-delete
   input parameter db_ :: <leveldb-t*>;
   input parameter options_ :: <leveldb-writeoptions-t*>;
-  input parameter key_ :: <c-string>;
+  input parameter key_ :: <C-string>;
   input parameter keylen_ :: <size-t>;
   output parameter errptr_ :: <char**>;
   c-name: "leveldb_delete";
@@ -124,11 +124,11 @@ define C-pointer-type <size-t*> => <size-t>;
 define C-function %leveldb-get
   input parameter db_ :: <leveldb-t*>;
   input parameter options_ :: <leveldb-readoptions-t*>;
-  input parameter key_ :: <c-string>;
+  input parameter key_ :: <C-string>;
   input parameter keylen_ :: <size-t>;
   output parameter vallen_ :: <size-t*>;
   output parameter errptr_ :: <char**>;
-  result res :: <c-string>;
+  result res :: <C-string>;
   c-name: "leveldb_get";
 end;
 
@@ -155,8 +155,8 @@ end;
 
 define C-function leveldb-property-value
   input parameter db_ :: <leveldb-t*>;
-  input parameter propname_ :: <c-string>;
-  result res :: <c-string>;
+  input parameter propname_ :: <C-string>;
+  result res :: <C-string>;
   c-name: "leveldb_property_value";
 end;
 
@@ -176,23 +176,23 @@ end;
 
 define C-function %leveldb-compact-range
   input parameter db_ :: <leveldb-t*>;
-  input parameter start-key_ :: <c-string>;
+  input parameter start-key_ :: <C-string>;
   input parameter start-key-len_ :: <size-t>;
-  input parameter limit-key_ :: <c-string>;
+  input parameter limit-key_ :: <C-string>;
   input parameter limit-key-len_ :: <size-t>;
   c-name: "leveldb_compact_range";
 end;
 
 define C-function %leveldb-destroy-db
   input parameter options_ :: <leveldb-options-t*>;
-  input parameter name_ :: <c-string>;
+  input parameter name_ :: <C-string>;
   output parameter errptr_ :: <char**>;
   c-name: "leveldb_destroy_db";
 end;
 
 define C-function %leveldb-repair-db
   input parameter options_ :: <leveldb-options-t*>;
-  input parameter name_ :: <c-string>;
+  input parameter name_ :: <C-string>;
   output parameter errptr_ :: <char**>;
   c-name: "leveldb_repair_db";
 end;
@@ -220,7 +220,7 @@ end;
 
 define C-function %leveldb-iter-seek
   input parameter arg1_ :: <leveldb-iterator-t*>;
-  input parameter k_ :: <c-string>;
+  input parameter k_ :: <C-string>;
   input parameter klen_ :: <size-t>;
   c-name: "leveldb_iter_seek";
 end;
@@ -238,14 +238,14 @@ end;
 define C-function %leveldb-iter-key
   input parameter arg1_ :: <leveldb-iterator-t*>;
   output parameter klen_ :: <size-t*>;
-  result res :: <c-string>;
+  result res :: <C-string>;
   c-name: "leveldb_iter_key";
 end;
 
 define C-function %leveldb-iter-value
   input parameter arg1_ :: <leveldb-iterator-t*>;
   output parameter vlen_ :: <size-t*>;
-  result res :: <c-string>;
+  result res :: <C-string>;
   c-name: "leveldb_iter_value";
 end;
 
@@ -272,7 +272,7 @@ end;
 
 define C-function %leveldb-writebatch-put
   input parameter arg1_ :: <leveldb-writebatch-t*>;
-  input parameter key_ :: <c-string>;
+  input parameter key_ :: <C-string>;
   input parameter klen_ :: <size-t>;
   input parameter val_ :: <C-buffer-offset>;
   input parameter vlen_ :: <size-t>;
@@ -281,7 +281,7 @@ end;
 
 define C-function %leveldb-writebatch-delete
   input parameter arg1_ :: <leveldb-writebatch-t*>;
-  input parameter key_ :: <c-string>;
+  input parameter key_ :: <C-string>;
   input parameter klen_ :: <size-t>;
   c-name: "leveldb_writebatch_delete";
 end;
