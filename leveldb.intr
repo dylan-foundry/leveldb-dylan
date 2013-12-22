@@ -7,19 +7,6 @@ define simple-C-mapped-subtype <C-buffer-offset> (<C-void*>)
   export-map <machine-word>, export-function: identity;
 end;
 
-// Function for adding the base address of the repeated slots of a <buffer>
-// to an offset and returning the result as a <machine-word>.  This is
-// necessary for passing <buffer> contents across the FFI.
-
-define inline function buffer-offset
-    (the-buffer, data-offset :: <integer>)
- => (result-offset :: <machine-word>)
-  u%+(data-offset,
-      primitive-wrap-machine-word
-        (primitive-repeated-slot-as-raw
-           (the-buffer, primitive-repeated-slot-offset(the-buffer))))
-end function;
-
 define interface
   #include "leveldb/c.h",
     equate: {"char *" => <C-string>},
@@ -105,7 +92,7 @@ define function leveldb-open (options :: <leveldb-options-t*>, name :: <byte-str
 end;
 
 define method leveldb-put (db :: <leveldb-t*>, options :: <leveldb-writeoptions-t*>, key :: <string>, data) => ()
-  let errormsg = %leveldb-put(db, options, key, key.size, buffer-offset(data, 0), data.size);
+  let errormsg = %leveldb-put(db, options, key, key.size, byte-storage-address(data), data.size);
   unless (null-pointer?(errormsg))
     error(errormsg);
   end;
@@ -172,7 +159,7 @@ define method leveldb-iter-value (iter :: <leveldb-iterator-t*>) => (value :: <b
 end;
 
 define method leveldb-writebatch-put (batch :: <leveldb-writebatch-t*>, key :: <string>, data) => ()
-  %leveldb-writebatch-put(batch, key, key.size, buffer-offset(data, 0), data.size);
+  %leveldb-writebatch-put(batch, key, key.size, byte-storage-address(data), data.size);
 end;
 
 define method leveldb-writebatch-delete (batch :: <leveldb-writebatch-t*>, key :: <string>) => ()

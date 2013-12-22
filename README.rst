@@ -9,7 +9,7 @@ are executed.
 
 Please note:
 
-* You must be using Open Dylan 2012.1 or later.
+* You must be using Open Dylan 2013.2 or later.
 * You will also need a build of ``melange`` from the
   `melange`_ repo in your ``$PATH`` if you need to
   re-generate ``leveldb.dylan``.
