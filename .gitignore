@@ -1,4 +1,6 @@
 *.hdp
+*.iml
 _build
 documentation/build
+.idea
 test.db
