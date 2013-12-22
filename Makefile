@@ -16,7 +16,7 @@ ifeq ($(UNAME), FreeBSD)
 endif
 
 leveldb.dylan: leveldb.intr ext/leveldb/include/leveldb/c.h
-	$(MELANGE) -Tc-ffi -Iext/leveldb/include -I/usr/lib/clang/4.1/include/ -I/usr/include leveldb.intr leveldb.dylan
+	$(MELANGE) -Tc-ffi -Iext/leveldb/include leveldb.intr leveldb.dylan
 
 ext/leveldb/libleveldb.a:
 	$(MAKE) -C ext/leveldb OPT=$(CFLAGS)
